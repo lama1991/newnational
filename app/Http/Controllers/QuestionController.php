@@ -25,7 +25,7 @@ class QuestionController extends Controller
             $questions=Question::all();
             $data=array();
            $data['questions']=QuestionResource::collection($questions);
-           return  $this-> apiResponse( $questions,true,'all questions are here ',200);
+           return  $this-> apiResponse($data,true,'all questions are here ',200);
           
            }
           catch (\Exception $ex){

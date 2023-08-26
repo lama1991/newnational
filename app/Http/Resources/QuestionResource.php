@@ -16,13 +16,13 @@ class QuestionResource extends JsonResource
     public function toArray($request)
     {
         return[
-            'uuid'=>$this->uuid,
+           'uuid'=>$this->uuid,
              'content'=>$this->content,
              'reference'=>$this->reference,
              'college'=>new CollegeResource($this->college),
-           //  'term'=>new TermResource($this->term),
-             'specialization'=>new SpecializationResource($this->specialization),
-             'answers'=>new AnswerResource($this->answers)
+         //  'term'=>new TermResource($this->term),
+         //   'specialization'=>new SpecializationResource($this->specialization),
+            'answers'=>AnswerResource::collection($this->answers)
              ];
     }
 }
