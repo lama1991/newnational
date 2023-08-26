@@ -32,13 +32,37 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => public_path('app'),
         ],
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app'),
             'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'category' => [
+            'driver' => 'local',
+            'root' => public_path().'/category',
+            'url' => env('APP_URL').'/public/images/category/',
+            'visibility' => 'public',
+        ],
+        'college' => [
+            'driver' => 'local',
+            'root' => public_path().'/college',
+            'url' => env('APP_URL').'/public/images/college/',
+            'visibility' => 'public',
+        ],
+        'profile' => [
+            'driver' => 'local',
+            'root' => public_path().'/profile',
+            'url' => env('APP_URL').'/public/images/profile/',
+            'visibility' => 'public',
+        ],
+        'slider' => [
+            'driver' => 'local',
+            'root' => public_path().'/slider',
+            'url' => env('APP_URL').'/public/images/slider/',
             'visibility' => 'public',
         ],
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\SliderResource;
 use Illuminate\Http\Request;
 use App\Models\Slider;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Traits\UploadTrait;
@@ -18,7 +19,7 @@ class SliderController extends Controller
              $data=array();
            $data['sliders']=SliderResource::collection( $sliders);
            return  $this-> apiResponse($data,true,'all sliders are here ',200);
-          
+
            }
           catch (\Exception $ex){
             return $this->apiResponse([], false,$ex->getMessage() ,500);
@@ -27,9 +28,9 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $validator=Validator::make($request->all(),[
-            'image'=>'required|image',
+            'image'=>'required|image|mimes:jpeg,png,jpg,svg',
              'link'=>  'string',
-            
+
             ]
         );
                 if($validator->fails()){
@@ -41,16 +42,16 @@ class SliderController extends Controller
           if($request->hasFile('image'))
           {
            $file=$request->file('image');
-           $path=$this-> uploadOne($file, 'sliders');
-        
-        $data['image_url']=$path;
+           $path=$this-> uploadImage($file);
+
+        $data['image_url']=Config::get('filesystems.disks.slider.url').$path;
 
           }
           $slider=Slider::create($data);
       $data2=array();
       $data2['slider']=new SliderResource($slider);
          return  $this-> apiResponse( $data2 ,true, $msg,201);
-       
+
         }
         catch (\Exception $ex)
         {

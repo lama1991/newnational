@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('uuid')->unique();
             $table->string('content');         
             $table->string('reference');
-           $table->unsignedBigInteger('term_id');
+            $table->unsignedBigInteger('term_id');
             $table->foreign('term_id')->references('id')->on('terms');
             $table->unsignedBigInteger('specializtion_id');
             $table->foreign('specializtion_id')->references('id')->on('specializations');

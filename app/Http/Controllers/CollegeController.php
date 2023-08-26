@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Traits\UploadTrait;
+use Illuminate\Support\Facades\Config;
 class CollegeController extends Controller
 {
     use GeneralTrait,UploadTrait;
-   
+
     public function index()
     {
         try{
@@ -22,7 +23,7 @@ class CollegeController extends Controller
          $data=array();
          $data['colleges']=CollegeResource::collection( $colleges);
         return  $this-> apiResponse($data,true,'all colleges are here ',200);
-       
+
         }
        catch (\Exception $ex){
             return $this->errorResponse($ex->getMessage(),500);
@@ -35,23 +36,30 @@ class CollegeController extends Controller
         $validator=Validator::make($request->all(),[
             'name'=>'required|string',
              'category_id'=>  'required|numeric',
-             'logo2'=>'required|image'
+             'logo2'=>'required|image|mimes:jpeg,png,jpg,svg'
             ]
         );
                 if($validator->fails()){
                     return $this-> apiResponse([], false,$validator->errors(),422);
         }
       try {
-       
+
           $uuid = Str::uuid()->toString();
            $data= $validator->validated();
           $data['uuid']=$uuid;
+          // Check if college already exists in the database
+          $collegeExists = College::where('name', $data['name'])->exists();
+          if ($collegeExists) {
+              return $this->apiResponse([], false, 'College already exists', 422);
+          }
+
           if($request->hasFile('logo2'))
           {
            $file=$request->file('logo2');
-           $path=$this-> uploadOne($file, 'colleges');
-        
-        $data['logo']=$path;
+           $path=$this-> uploadImage($file);
+
+
+        $data['logo']=Config::get('filesystems.disks.college.url').$path;
 
           }
           $college=College::create($data);
@@ -59,7 +67,7 @@ class CollegeController extends Controller
           $data2=array();
           $data2['college']=new CollegeResource($college);
          return  $this-> apiResponse($data2,true, $msg,201);
-       
+
         }
         catch (\Exception $ex)
         {

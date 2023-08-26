@@ -9,6 +9,7 @@ use App\Http\Traits\UploadTrait;
 use App\Models\Category;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 class CategoryController extends Controller
@@ -26,7 +27,7 @@ class CategoryController extends Controller
             $data=array();
            $data['categories']=CategoryResource::collection( $categories);
            return  $this-> apiResponse($data,true,'all categories are here ',200);
-          
+
            }
           catch (\Exception $ex){
             return $this->apiResponse([], false,$ex->getMessage() ,500);
@@ -53,7 +54,7 @@ class CategoryController extends Controller
     {
         $validator=Validator::make($request->all(),[
             'name'=>'required|string',
-            'logo2'=>'required|image'
+            'logo2'=>'required|image|mimes:jpeg,png,jpg,svg'
             ]
         );
                 if($validator->fails()){
@@ -64,20 +65,26 @@ class CategoryController extends Controller
           $uuid = Str::uuid()->toString();
           $data= $validator->validated();
          $data['uuid']=$uuid;
-         if($request->hasFile('logo2'))
+          // Check if category already exists in the database
+          $categoryExists = Category::where('name', $data['name'])->exists();
+          if ($categoryExists) {
+              return $this->apiResponse([], false, 'Category already exists', 422);
+          }
+
+          if($request->hasFile('logo2'))
          {
           $file=$request->file('logo2');
-          $path=$this->uploadOne($file, 'categories');
-       
-          $data['logo']=$path;
+          $path=$this->uploadImage($file);
+
+          $data['logo']=Config::get('filesystems.disks.category.url').$path;
 
          }
          $category=new CategoryResource(Category::create($data));
          $data2=array();
          $data2['category']= $category;
-     
+
          return  $this-> apiResponse($data2,true, $msg,201);
-       
+
         }
         catch (\Exception $ex)
         {
