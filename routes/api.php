@@ -57,6 +57,8 @@ Route::get('question/{uuid}',[QuestionController::class,'show']);
 
 Route::get('answer/all',[AnswerController::class,'index']);
 Route::get('answer/{uuid}',[AnswerController::class,'show']);
+Route::post('answer/create',[AnswerController::class,'store']);
+
 
 Route::get('/setnullable', function () {
     shell_exec('(cd '.base_path().' && composer require doctrine/dbal)');

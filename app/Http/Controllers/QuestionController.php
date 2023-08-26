@@ -24,8 +24,8 @@ class QuestionController extends Controller
            
             $questions=Question::all();
             $data=array();
-            $data['questions']=QuestionResource::collection($questions);
-           return  $this-> apiResponse($data,true,'all questions are here ',200);
+           $data['questions']=QuestionResource::collection($questions);
+           return  $this-> apiResponse( $questions,true,'all questions are here ',200);
           
            }
           catch (\Exception $ex){
@@ -72,7 +72,8 @@ class QuestionController extends Controller
          
           $msg='question is created successfully';
           $data2=array();
-          $data2['question']=new QuestionResource($question);
+         $data2['question']=new QuestionResource($question);
+
          return  $this-> apiResponse($data2,true, $msg,201);
        
         }
