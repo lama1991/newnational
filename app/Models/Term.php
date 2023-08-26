@@ -9,8 +9,8 @@ class Term extends Model
 {
     use HasFactory;
     protected $fillable = [
-        
-       'uuid' , 'name' , 'specializtion_id'
+
+       'uuid' , 'name' , 'specialization_id'
     ];
     public function specialization()
     {

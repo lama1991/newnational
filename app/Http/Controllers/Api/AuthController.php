@@ -24,16 +24,16 @@ class AuthController
      */
     public function register(Request $request)
     {
-      
+
         $validator = Validator::make($request->all(), [
             'name' => ['required' ,'string'],
-            'phone'=> ['required' ,'string'],
+            'phone' => ['required', 'string', 'regex:/^09\d{8}$/'],
             'college_id'=>['required' ,'numeric']
         ]);
 
         if($validator->fails()){
             return $this-> apiResponse([], false,$validator->errors(),422);
-           
+
         }
         try {
             $user=User::where('name',$request['name'])
@@ -46,13 +46,13 @@ class AuthController
                     'phone'=>$request['phone'],
                     'role' =>'student',
                     'uuid' => Str::uuid()->toString()
-    
+
                    ];
                 $user=User::create( $data);
                 $user->profile()->create(['uuid'=> $uuid = Str::uuid()->toString(),'photo'=>'']);
             }
-          
-           
+
+
             $code=$user->codes()->where('college_id',$request['college_id'])->exists();
             // the user is trying to register a college he already has registered
              if($code)
@@ -61,21 +61,21 @@ class AuthController
              }
              else
              {
-                //add the user_id and college_id to the codes table 
+                //add the user_id and college_id to the codes table
                 //with code = null untill the user pays
                 $user->codes()->create([
                     'uuid' => Str::uuid()->toString(),
                    'college_id'=>$request['college_id']
                 ]);
              }
-           
+
             return $this-> apiResponse([],true,'User is registered successfully.' , 200);
-        
-            
+
+
         }
         catch (\Exception $ex){
           return $this->apiResponse([], false,$ex->getMessage() ,500);
-          
+
         }
     }
     //generate and store code
@@ -91,7 +91,7 @@ class AuthController
         ->first();
        $code=$user->codes()->where('college_id',$college_id)->first();
        if($code && $user)
-       
+
        {
         $random=Str::random(10);
          while(Code::where('code', $random)->exists())
@@ -111,13 +111,13 @@ class AuthController
        {
         return $this-> apiResponse([],false,'try to register again.' , 404);
        }
-    
+
        }
        catch (\Exception $ex){
         DB::rollback();
         return $this->apiResponse([], false,$ex->getMessage() ,500);}
-        
-   
+
+
     }
 
     /**
@@ -136,8 +136,8 @@ class AuthController
          }
 
  try {
-   
-  
+
+
     $code=Code::where('code',$request['code'])->first();
     if($code)
     {
@@ -146,9 +146,9 @@ class AuthController
         {
             $college=$code->college;
             // create the token after the cradrntial is true
-            // and save the college_id corresponding to the code he used to use in the middleware  
+            // and save the college_id corresponding to the code he used to use in the middleware
             $token = $user->createToken('MyApp',$college->id)->plainTextToken;
-            
+
             $data = [
             'user' => new UserResource( $user),
              'token' => $token,
@@ -166,8 +166,8 @@ class AuthController
         return $this-> apiResponse([], false,'incorrect code', 400);
     }
 
-   
-  
+
+
 
  }
          catch(\Exception $ex)
@@ -181,9 +181,9 @@ class AuthController
     {
         auth('sanctum')->user()->currentAccessToken()->delete();
         return $this->apiResponse([], true,'User has logged out successfully.' ,200);
-    
+
     }
-  
+
 
 
 }

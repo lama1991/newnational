@@ -9,7 +9,7 @@ trait UploadTrait
 {
     public function uploadOne(UploadedFile $uploadedFile, $folder = null, $disk = 'public', $filename = null)
     {
-       
+
         if (is_null($filename))
         {
             $name=Str::random(16).$uploadedFile->getClientOriginalName();
@@ -24,10 +24,10 @@ trait UploadTrait
 
         return  $image_path;
     }
-    
+
     public function uploadMulti(array $uploadedFiles, $folder = null, $disk = 'local')
     {
-       
+
         foreach($uploadedFiles as $file) {
             $name=Str::random(16).$file->getClientOriginalName();
             $destenation=$folder.'/'.$name;
@@ -37,7 +37,15 @@ trait UploadTrait
         $pathes[]=storage_path('app/'.$destenation);
 
      }
-       
+
      return   $pathes;
+    }
+    public function uploadImage($image, $folder = null){
+        $file_extension=$image->getClientOriginalExtension();
+        $file_name=time().'.'.$file_extension;
+        $path=$folder;
+        $image->move(public_path($path),$file_name);
+        return $file_name;
+
     }
 }

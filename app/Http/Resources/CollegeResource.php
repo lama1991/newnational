@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CollegeResource extends JsonResource
 {
-  
+
     /**
      * Transform the resource into an array.
      *
@@ -20,7 +20,8 @@ class CollegeResource extends JsonResource
         'uuid'=>$this->uuid,
         'name'=>$this->name,
         'logo'=>$this->logo,
-        'category'=>new CategoryResource($this->category)
+           'category'=>new CategoryResource($this->category)
+
        ];
     }
 }
