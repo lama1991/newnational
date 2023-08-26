@@ -56,6 +56,21 @@ Route::get('/specialization/{id}',[SpecializationController::class,'show']);
 Route::get('/specialization/{college_id}/{specialization_id}',[SpecializationController::class,'destroy']);
 Route::get('/terms-of-specializations/{id}',[SpecializationController::class,'termsOf']);
 
+Route::get('question/all',[QuestionController::class,'index']);
+Route::post('question/create',[QuestionController::class,'store']);
+Route::get('question/{uuid}',[QuestionController::class,'show']);
+
+Route::get('answer/all',[AnswerController::class,'index']);
+Route::get('answer/{uuid}',[AnswerController::class,'show']);
+
+// Route::get('/setnullable', function () {
+//     shell_exec('(cd '.base_path().' && composer require doctrine/dbal)');
+ 
+// });
+// Route::get('/setnullable2', function () {
+   
+//   Artisan::call('migrate --path=database/migrations/2023_08_21_213509_changetonullable.php');
+// });
 
 Route::get('/term/all',[TermController::class,'index']);
 Route::post('/term/create',[TermController::class,'store']);
