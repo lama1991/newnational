@@ -7,6 +7,7 @@ use App\Http\Traits\GeneralTrait;
 use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AnswerController extends Controller
 {
