@@ -20,8 +20,8 @@ class QuestionResource extends JsonResource
              'content'=>$this->content,
              'reference'=>$this->reference,
              'college'=>new CollegeResource($this->college),
-         //  'term'=>new TermResource($this->term),
-         //   'specialization'=>new SpecializationResource($this->specialization),
+          'term'=>new TermResource($this->term),
+           'specialization'=>new SpecializationResource($this->specialization),
             'answers'=>AnswerResource::collection($this->answers)
              ];
     }
