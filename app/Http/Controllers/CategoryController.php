@@ -9,6 +9,7 @@ use App\Http\Traits\UploadTrait;
 use App\Models\Category;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 class CategoryController extends Controller
@@ -73,9 +74,9 @@ class CategoryController extends Controller
           if($request->hasFile('logo2'))
          {
           $file=$request->file('logo2');
-          $path=$this->uploadImage($file, 'images/category');
+          $path=$this->uploadImage($file);
 
-          $data['logo']=env('APP_URL').'/public/images/category/'.$path;
+          $data['logo']=Config::get('filesystems.disks.category.url').$path;
 
          }
          $category=new CategoryResource(Category::create($data));

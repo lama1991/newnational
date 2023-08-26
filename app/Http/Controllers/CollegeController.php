@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Traits\UploadTrait;
+use Illuminate\Support\Facades\Config;
 class CollegeController extends Controller
 {
     use GeneralTrait,UploadTrait;
@@ -55,9 +56,10 @@ class CollegeController extends Controller
           if($request->hasFile('logo2'))
           {
            $file=$request->file('logo2');
-           $path=$this-> uploadImage($file, 'images/college');
+           $path=$this-> uploadImage($file);
 
-        $data['logo']=env('APP_URL').'/public/images/college/'.$path;
+
+        $data['logo']=Config::get('filesystems.disks.college.url').$path;
 
           }
           $college=College::create($data);

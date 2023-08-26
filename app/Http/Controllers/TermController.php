@@ -52,7 +52,7 @@ class TermController extends Controller
     {
         $validator=Validator::make($request->all(),[
                 'name'=>'required|string',
-                'specializtion_id'=>'required|numeric',
+                'specialization_id'=>'required|numeric',
             ]
         );
         if($validator->fails()){

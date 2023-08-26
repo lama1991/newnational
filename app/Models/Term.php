@@ -10,11 +10,11 @@ class Term extends Model
     use HasFactory;
     protected $fillable = [
 
-       'uuid' , 'name' , 'specializtion_id'
+       'uuid' , 'name' , 'specialization_id'
     ];
     public function specialization()
     {
-        return $this->belongsTo(Specialization::class,'specializtion_id');
+        return $this->belongsTo(Specialization::class);
     }
     public function questions()
     {

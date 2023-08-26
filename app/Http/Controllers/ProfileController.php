@@ -11,6 +11,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -101,8 +102,8 @@ class ProfileController extends Controller
     if($request->hasFile('photo2'))
     {
      $file=$request->file('photo2');
-     $path=$this->uploadImage($file, 'images/profile');
-     $user->profile()->update(['photo'=>env('APP_URL').'/public/images/profile/'.$path]);
+     $path=$this->uploadImage($file);
+     $user->profile()->update(['photo'=>Config::get('filesystems.disks.profile.url').$path]);
 
      }
 
@@ -129,7 +130,6 @@ class ProfileController extends Controller
     public function myProfile()
     {
         $user= Auth::user();
-        //   dd("llllll");
 
         try{
 
