@@ -9,13 +9,13 @@ class Question extends Model
 {
     use HasFactory;
     protected $fillable = [
-        
+
        'uuid' ,
         'content' ,
         'reference' ,
         'term_id',
         'college_id' ,
-        'specializtion_id'
+        'specialization_id'
 
 
     ];

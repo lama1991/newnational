@@ -81,41 +81,41 @@ class AuthController
     //generate and store code
     public function giveCode(Request $request )
     {
-       try
-       {
-        $name=$request['name'];
-        $phone=$request['phone'];
-        $college_id=$request['college_id'];
-        $user=User::where('name',$name)
-        ->where('phone',$phone)
-        ->first();
-       $code=$user->codes()->where('college_id',$college_id)->first();
-       if($code && $user)
+        try
+        {
+            $name=$request['name'];
+            $phone=$request['phone'];
+            $college_id=$request['college_id'];
+            $user=User::where('name',$name)
+                ->where('phone',$phone)
+                ->first();
+            $code=$user->codes()->where('college_id',$college_id)->first();
+            if($code && $user)
 
-       {
-        $random=Str::random(10);
-         while(Code::where('code', $random)->exists())
             {
                 $random=Str::random(10);
+                while(Code::where('code', $random)->exists())
+                {
+                    $random=Str::random(10);
+                }
+                DB::beginTransaction();
+                $user->update(['is_active'=>true]);
+                $code->update([  'code'=>$random]);
+                $data=array();
+                $data['code']=$random;
+
+                DB::commit();
+                return $this-> apiResponse($data,true,'code is saved successfully.' , 200);
             }
-            DB::beginTransaction();
-            $user->update(['is_active'=>true]);
-             $code->update([  'code'=>$random]);
-              $data=array();
-             $data['code']=$random;
+            else
+            {
+                return $this-> apiResponse([],false,'try to register again.' , 404);
+            }
 
-            DB::commit();
-            return $this-> apiResponse($data,true,'code is saved successfully.' , 200);
-       }
-       else
-       {
-        return $this-> apiResponse([],false,'try to register again.' , 404);
-       }
-
-       }
-       catch (\Exception $ex){
-        DB::rollback();
-        return $this->apiResponse([], false,$ex->getMessage() ,500);}
+        }
+        catch (\Exception $ex){
+            DB::rollback();
+            return $this->apiResponse([], false,$ex->getMessage() ,500);}
 
 
     }

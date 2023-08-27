@@ -92,11 +92,11 @@ class SpecializationController extends Controller
      * @param  \App\Models\Specialization  $specialization
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
 
         try {
-            $specialization=Specialization::find($id);
+            $specialization=Specialization::where('uuid',$uuid)->first();
             if(!$specialization)
             {
                 return  $this-> apiResponse([],false,'no spezalization with such id',404);
