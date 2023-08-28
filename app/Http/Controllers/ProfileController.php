@@ -21,25 +21,18 @@ class ProfileController extends Controller
 
    public function index()
    {
-
-        try{
+       try{
            $users=User::all();
 
-         // $data['profiles']=UserProfileResource::collection($users);
+           $data['profiles']=UserProfileResource::collection($users);
 
-          return  $this-> apiResponse($users,true,'all profiles are here ',200);
+           return  $this-> apiResponse($data,true,'all profiles are here ',200);
 
-
-
-           }
-          catch (\Exception $ex){
-              return  $this-> apiResponse([],false,$ex->getMessage(),500);
-           }
+       }
+       catch (\Exception $ex){
+           return  $this-> apiResponse([],false,$ex->getMessage(),500);
+       }
    }
-
-
-
-
     public function store(Request $request)
     {
         //

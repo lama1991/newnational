@@ -68,16 +68,23 @@ class AnswerController extends Controller
             return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
-    public function getAnswersByQuestion($questionId)
+    public function getAnswersByQuestion($uuid)
     {
-        $question = Question::find($questionId);
+        try
+        {
+            $question = Question::where('uuid',$uuid)->first();
+              if (!$question) {
+                return $this-> apiResponse([],false,'no question with such id', 404);
+            }
+            $answers = $question->answers;
+            $data=array();
+            $data['answers']=AnswerResource::collection( $answers);
 
-        if (!$question) {
-            return response()->json(['error' => 'Question not found'], 404);
+            return  $this-> apiResponse($data,true,'all answers of question are here ',200);
+
         }
-
-        $answers = $question->answers;
-
-        return response()->json(['answers' => $answers]);
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
+        }
     }
 }

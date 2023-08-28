@@ -43,7 +43,7 @@ Route::get('/colleges-of-category/{id}',[CategoryController::class,'colleges']);
 Route::post('/profile/update',[ProfileController::class,'update'])->middleware(['auth:sanctum']);
 Route::get('/profile/{user_uuid}',[ProfileController::class,'show']);
 Route::get('/my-profile',[ProfileController::class,'myProfile'])->middleware(['auth:sanctum']);;
-Route::get('/profile/all',[ProfileController::class,'index']);
+Route::get('/profile/get/all',[ProfileController::class,'index']);
 Route::post('/profile/update-photo',[ProfileController::class,'updatePhoto'])->middleware(['auth:sanctum']);;
 
 
@@ -60,6 +60,7 @@ Route::post('/specialization/{college_id}/{specialization_id}',[SpecializationCo
 Route::get('question/all',[QuestionController::class,'index']);
 Route::post('question/create',[QuestionController::class,'store']);
 Route::get('question/{uuid}',[QuestionController::class,'show']);
+Route::get('/questions-of-term/{id}',[QuestionController::class,'getQuestionsByTerm']);
 
 Route::get('answer/all',[AnswerController::class,'index']);
 Route::post('answer/create',[AnswerController::class,'store']);
