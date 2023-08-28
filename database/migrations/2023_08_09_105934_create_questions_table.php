@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
-            $table->string('content');         
+            $table->string('content');
             $table->string('reference');
-            $table->unsignedBigInteger('term_id')->nullable();
+            $table->unsignedBigInteger('term_id');
             $table->foreign('term_id')->references('id')->on('terms');
-            $table->unsignedBigInteger('specializtion_id')->nullable();
-            $table->foreign('specializtion_id')->references('id')->on('specializations');
+            $table->unsignedBigInteger('specialization_id');
+            $table->foreign('specialization_id')->references('id')->on('specializations');
             $table->unsignedBigInteger('college_id');
             $table->foreign('college_id')->references('id')->on('colleges');
             $table->timestamps();

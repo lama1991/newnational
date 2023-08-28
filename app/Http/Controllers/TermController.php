@@ -83,10 +83,10 @@ class TermController extends Controller
      * @param  \App\Models\Term  $term
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
         try {
-            $term=Term::find($id);
+            $term=Term::where('uuid',$uuid)->first();
             if(!$term)
             {
                 return  $this-> apiResponse([],false,'no term with such id',404);

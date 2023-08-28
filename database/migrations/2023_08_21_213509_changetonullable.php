@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('questions', function (Blueprint $table) {
             $table->unsignedBigInteger('term_id')->nullable()->change();
-            $table->unsignedBigInteger('specializtion_id')->nullable()->change();
+            $table->unsignedBigInteger('specialization_id')->nullable()->change();
         });
     }
 

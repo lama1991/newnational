@@ -9,7 +9,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\TermController;
-
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AnswerController;
 /*-------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/give-code',[AuthController::class,'giveCode'])->name('give.code');
-Route::get('/logout',[AuthController::class,'logout'])->middleware(['auth:sanctum']);
+
 
 
 Route::get('/college/all',[CollegeController::class,'index']);
@@ -52,30 +53,27 @@ Route::post('/slider/create',[SliderController::class,'store']);
 
 Route::get('/specialization/all',[SpecializationController::class,'index']);
 Route::post('/specialization/create',[SpecializationController::class,'store']);
-Route::get('/specialization/{id}',[SpecializationController::class,'show']);
-Route::get('/specialization/{college_id}/{specialization_id}',[SpecializationController::class,'destroy']);
-Route::get('/terms-of-specializations/{id}',[SpecializationController::class,'termsOf']);
+Route::get('/specialization/{uuid}',[SpecializationController::class,'show']);
+Route::post('/specialization/{college_id}/{specialization_id}',[SpecializationController::class,'destroy']);
+
 
 Route::get('question/all',[QuestionController::class,'index']);
 Route::post('question/create',[QuestionController::class,'store']);
 Route::get('question/{uuid}',[QuestionController::class,'show']);
 
 Route::get('answer/all',[AnswerController::class,'index']);
+Route::post('answer/create',[AnswerController::class,'store']);
 Route::get('answer/{uuid}',[AnswerController::class,'show']);
-
-// Route::get('/setnullable', function () {
-//     shell_exec('(cd '.base_path().' && composer require doctrine/dbal)');
- 
-// });
-// Route::get('/setnullable2', function () {
-   
-//   Artisan::call('migrate --path=database/migrations/2023_08_21_213509_changetonullable.php');
-// });
+Route::get('/answers-of-question/{id}',[AnswerController::class,'getAnswersByQuestion']);
 
 Route::get('/term/all',[TermController::class,'index']);
 Route::post('/term/create',[TermController::class,'store']);
-Route::get('/term/{id}',[TermController::class,'show']);
-Route::get('/getTermsBySpecialization/{id}',[TermController::class,'getTermsBySpecialization']);
+Route::get('/term/{uuid}',[TermController::class,'show']);
+Route::get('/terms-of-specializations/{id}',[TermController::class,'getTermsBySpecialization']);
+
+
 Route::group(['middleware'=>['auth:sanctum']],function (){
-    Route::post('/logout',[AuthController::class,'logout']);
+    Route::get('/logout',[AuthController::class,'logout']);
+
+
 });
