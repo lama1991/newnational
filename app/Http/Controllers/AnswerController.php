@@ -15,6 +15,7 @@ class AnswerController extends Controller
     use GeneralTrait;
     public function store(Request $request)
     {
+        
         $validator=Validator::make($request->all(),[
             'content'=>'required|string',
             'is_true'=>'required',
@@ -30,6 +31,7 @@ class AnswerController extends Controller
            $data= $validator->validated();
           $data['uuid']=Str::uuid()->toString();
          $answer=Answer::create($data);
+        
           $msg='answer is created successfully';
           $data2=array();
           $data2['answer']=new AnswerResource( $answer);
@@ -68,16 +70,24 @@ class AnswerController extends Controller
             return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
-    public function getAnswersByQuestion($questionId)
+    public function getAnswersByQuestion($uuid)
     {
-        $question = Question::find($questionId);
+        try
+        {
+            $question=Question::where('uuid',$uuid)->first();
 
         if (!$question) {
-            return response()->json(['error' => 'Question not found'], 404);
+            return $this->apiResponse([], false,'Question not found',404);
+     
         }
 
-        $answers = $question->answers;
-
-        return response()->json(['answers' => $answers]);
+        $answers =AnswerResource::collection ($question->answers);
+        $data['answers']=AnswerResource::collection($answers);
+        return  $this-> apiResponse($data,true,'all answers are here ',200);
+         }
+         catch (\Exception $ex)
+         {
+             return $this->apiResponse([], false,$ex->getMessage() ,500);
+         }
     }
 }

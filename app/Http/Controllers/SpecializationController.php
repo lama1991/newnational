@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Resources\SpecializationResource;
+use App\Http\Resources\TermResource;
+
 class SpecializationController extends Controller
 {
     use GeneralTrait;
@@ -28,7 +30,7 @@ class SpecializationController extends Controller
 
         }
         catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+            return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
 
@@ -192,7 +194,7 @@ class SpecializationController extends Controller
             return  $this-> apiResponse($data,true,'all terms of specialization are here ',200);
         }
         catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+            return $this->apiResponse([], false, $ex->getMessage(), 500);
         }
     }
 }

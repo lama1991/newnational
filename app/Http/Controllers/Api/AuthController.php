@@ -89,6 +89,10 @@ class AuthController
             $user=User::where('name',$name)
                 ->where('phone',$phone)
                 ->first();
+            if(! $user)
+                {
+                    return  $this-> apiResponse([],false,'no user with such craditinials',404);
+                }
             $code=$user->codes()->where('college_id',$college_id)->first();
             if($code && $user)
 

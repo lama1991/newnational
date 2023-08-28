@@ -26,7 +26,7 @@ class CollegeController extends Controller
 
         }
        catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+        return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
 
@@ -110,7 +110,7 @@ class CollegeController extends Controller
         return  $this-> apiResponse($data,true,'all specializations of college are here ',200);
         }
         catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+            return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
     /**

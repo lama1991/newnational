@@ -64,7 +64,8 @@ Route::get('question/{uuid}',[QuestionController::class,'show']);
 Route::get('answer/all',[AnswerController::class,'index']);
 Route::post('answer/create',[AnswerController::class,'store']);
 Route::get('answer/{uuid}',[AnswerController::class,'show']);
-Route::get('/answers-of-question/{id}',[AnswerController::class,'getAnswersByQuestion']);
+Route::get('/answers-of-question/{uuid}',[AnswerController::class,'getAnswersByQuestion']);
+Route::get('/questions-of-term/{id}',[QuestionController::class,'getQuestionsByTerm']);
 
 Route::get('/term/all',[TermController::class,'index']);
 Route::post('/term/create',[TermController::class,'store']);

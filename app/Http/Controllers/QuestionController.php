@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\QuestionResource;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Question;
+use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -93,6 +94,10 @@ class QuestionController extends Controller
         try{
           
             $question=Question::where('uuid',$uuid)->first();
+            if (!$question) {
+                return $this->apiResponse([], false,'Question not found',404);
+         
+            }
            $data['question']=new QuestionResource($question);
             return  $this-> apiResponse($data,true,'question is here',200);
         }
@@ -134,5 +139,28 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         //
+    }
+
+    public function getQuestionsByTerm($termId)
+    {
+
+        try
+        {
+            $term = Term::find($termId);
+
+            if (!$term) {
+                return $this-> apiResponse([],false,'no term with such id', 404);
+            }
+
+            $questions = $term->questions;
+            $data=array();
+            $data['questions']=QuestionResource::collection( $questions);
+
+            return  $this-> apiResponse($data,true,'all questions of term are here ',200);
+
+        }
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
+        }
     }
 }
