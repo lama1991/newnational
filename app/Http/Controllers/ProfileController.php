@@ -25,9 +25,9 @@ class ProfileController extends Controller
         try{
            $users=User::all();
 
-         // $data['profiles']=UserProfileResource::collection($users);
+         $data['profiles']=UserProfileResource::collection($users);
 
-          return  $this-> apiResponse($users,true,'all profiles are here ',200);
+          return  $this-> apiResponse($data,true,'all profiles are here ',200);
 
 
 
@@ -36,6 +36,7 @@ class ProfileController extends Controller
               return  $this-> apiResponse([],false,$ex->getMessage(),500);
            }
    }
+  
 
 
 
