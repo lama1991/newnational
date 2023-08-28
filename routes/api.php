@@ -34,6 +34,8 @@ Route::get('/college/all',[CollegeController::class,'index']);
 Route::post('/college/create',[CollegeController::class,'store']);
 Route::get('/college/{id}',[CollegeController::class,'show']);
 Route::get('/specializations-of-college/{id}',[CollegeController::class,'specializationsof'])->middleware(['auth:sanctum']);
+Route::get('/master-spec/{id}',[CollegeController::class,'masterSpec']);
+Route::get('/degrees/{id}',[CollegeController::class,'degree']);
 
 Route::get('/category/all',[CategoryController::class,'index']);
 Route::post('/category/create',[CategoryController::class,'store']);

@@ -55,6 +55,7 @@ class SpecializationController extends Controller
         $validator=Validator::make($request->all(),[
                 'name'=>'required|string',
                 'college_id'=>'required|numeric',
+                'is_master'=>'required'
             ]
         );
         if($validator->fails()){
@@ -65,7 +66,7 @@ class SpecializationController extends Controller
             $uuid = Str::uuid()->toString();
             $data= $validator->validated();
             $data['uuid']=$uuid;
-
+            
             // Check if specialization already exists for the given college
             $existingSpecialization = Specialization::where('name', $data['name'])
                 ->where('college_id', $data['college_id'])
@@ -75,7 +76,8 @@ class SpecializationController extends Controller
                 return $this->apiResponse([], false, 'Specialization already exists for this college', 422);
             }
 
-            $specialization=new SpecializationResource(Specialization::create($data));
+           $specialization=new SpecializationResource(Specialization::create($data));
+            
             $data2=array();
             $data2['specialization']= $specialization;
 

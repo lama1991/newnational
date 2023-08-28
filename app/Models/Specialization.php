@@ -10,7 +10,7 @@ class Specialization extends Model
     use HasFactory;
     protected $fillable = [
        
-       'uuid' , 'name' , 'college_id'
+       'uuid' , 'name' , 'college_id','is_master',
     ];
     public function college()
     {

@@ -19,6 +19,7 @@ class SpecializationResource extends JsonResource
        'uuid'=>$this->uuid,
         'name'=>$this->name,
            'college'=>new CollegeResource($this->college),
+           'is_master'=>$this->is_master,
 
        ];
     }
