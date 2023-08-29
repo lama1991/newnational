@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class QuestionResource extends JsonResource
 {
- 
+
     /**
      * Transform the resource into an array.
      *
@@ -21,7 +21,7 @@ class QuestionResource extends JsonResource
              'reference'=>$this->reference,
              'college'=>new CollegeResource($this->college),
            'term'=>new TermResource($this->term),
-           'specialization'=>new SpecializationResource($this->specialization),
+            'specialization'=>new SpecializationResource($this->specialization),
             'answers'=>AnswerResource::collection($this->answers)
              ];
     }

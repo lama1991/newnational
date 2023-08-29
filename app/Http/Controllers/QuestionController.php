@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Traits\GeneralTrait;
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Term;
+use Doctrine\DBAL\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Http\Resources\QuestionResource;
+use function PHPUnit\Framework\isTrue;
 
 class QuestionController extends Controller
 {
@@ -158,5 +162,57 @@ class QuestionController extends Controller
             return $this->errorResponse($ex->getMessage(),500);
         }
     }
+    public function calculateMark(Request $request)
+    {
+    try
+    {
+        //المصفوفة المرسلة من قبل الفرونت
+    $answers = $request->input('answers');
+    $totalMarks = 0;
+        $trueCount = 0;
+        $falseCount = 0;
+
+
+        //عم نمشي على المصفوقة
+    foreach ($answers as $answer) {
+
+        $question_uuid = $answer['question_uuid'];
+        $answer_uuid = $answer['answer_uuid'];
+        //جبنا السؤال على حسب uuid
+
+        $question = Question::where('uuid',$question_uuid)->first();
+        $questionByUuid=new QuestionResource($question);
+        $answer_selected= $answer['answer_uuid'];
+        $questionsWithAnswers[]= [
+            'question' => $questionByUuid,
+            'answer_selected' => $answer_selected
+        ];
+
+        $answers = $question->answers;
+
+        foreach ($answers as $answer) {
+            if ($answer->is_true==true && $answer->uuid == $answer_uuid) {
+                $totalMarks+=2;
+                $trueCount++;
+                break;
+            } else if ($answer->is_true == false && $answer->uuid == $answer_uuid) {
+                $falseCount++;
+                break;
+            }
+        }
+        $data=['marks' => $totalMarks,
+            'true_count'=>$trueCount,
+            'false_count'=>$falseCount,
+          'questions' => $questionsWithAnswers
+        ];
+    }
+
+    return  $this-> apiResponse($data,true,'this is your mark ',200);
+   }
+   catch (\Exception $ex){
+    return $this->errorResponse($ex->getMessage(),500);
+   }
+    }
+
 
 }
