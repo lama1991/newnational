@@ -70,10 +70,11 @@ class QuestionController extends Controller
            $data= $validator->validated();
           $data['uuid']=Str::uuid()->toString();
         $question=Question::create($data);
-         
+        
           $msg='question is created successfully';
           $data2=array();
           $data2['question']=new QuestionResource($question);
+        
          return  $this-> apiResponse($data2,true, $msg,201);
        
         }

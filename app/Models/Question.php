@@ -27,9 +27,9 @@ class Question extends Model
     {
         return $this->belongsTo(College::class);
     }
-    public function specializtion()
+    public function specialization()
     {
-        return $this->belongsTo( Specializtion::class);
+        return $this->belongsTo( Specialization::class);
     }
     public function answers()
     {
