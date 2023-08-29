@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Models\College;
 use App\Models\Specialization;
 use App\Models\Term;
@@ -199,4 +200,27 @@ class SpecializationController extends Controller
             return $this->apiResponse([], false, $ex->getMessage(), 500);
         }
     }
+    public function bookQuest($specId)
+{
+    try
+    {
+        
+        $specialization=Specialization::find($specId);
+
+        if (!$specialization) {
+            return $this-> apiResponse([],false,'no specialization with such id', 404);
+        }
+
+        $questions = $specialization->questions()->where('term_id',null)->get();
+        $data=array();
+        $data['questions']=QuestionResource::collection( $questions);
+
+
+        return  $this-> apiResponse($data,true,'all questions of book are here ',200);
+
+    }
+    catch (\Exception $ex){
+        return $this->errorResponse($ex->getMessage(),500);
+    }
+}
 }

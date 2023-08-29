@@ -53,8 +53,9 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
      * @return void
      */
     public function __construct($resource)
-    {
-        $this->resource = $resource;
+    {   
+        
+        $this->resource =$resource;
     }
 
     /**
@@ -112,6 +113,7 @@ class JsonResource implements ArrayAccess, JsonSerializable, Responsable, UrlRou
      */
     public function toArray($request)
     {
+      
         if (is_null($this->resource)) {
             return [];
         }

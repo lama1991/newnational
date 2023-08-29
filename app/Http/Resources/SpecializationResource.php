@@ -12,9 +12,14 @@ class SpecializationResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+   
     public function toArray($request)
     {
-       return[
+     
+       
+        
+        return[
+
            'id'=>$this->id,
        'uuid'=>$this->uuid,
         'name'=>$this->name,
@@ -23,4 +28,5 @@ class SpecializationResource extends JsonResource
 
        ];
     }
+ 
 }

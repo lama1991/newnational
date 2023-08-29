@@ -15,15 +15,25 @@ class QuestionResource extends JsonResource
      */
     public function toArray($request)
     {
+      $data = parent::toArray($request);
+
+      foreach ($data as $key => $value) {
+          if ($value === null) {
+              $data[$key] = (object) [];
+          }
+      }
+      
         return[
+       
            'uuid'=>$this->uuid,
              'content'=>$this->content,
              'reference'=>$this->reference,
              'college'=>new CollegeResource($this->college),
-           'term'=>new TermResource($this->term),
-           'specialization'=> new SpecializationResource($this->specialization),
-          
-            'answers'=>AnswerResource::collection($this->answers)
+         
+         'term'=> $this->term?new TermResource($this->term) :(object)[],
+         'specialization'=>$this->specialization  ?new SpecializationResource($this->specialization) :(object)[],
+        
+       
              ];
     }
 }
