@@ -100,11 +100,11 @@ class ProfileController extends Controller
 
     if($request->hasFile('photo2'))
     {
-     $file=$request->file('photo2');
-     $path=$this->uploadImage($file);
-     $user->profile()->update(['photo'=>Config::get('filesystems.disks.profile.url').$path]);
-
-     }
+    $file=$request->file('photo2');
+     $path=$this->uploadPublic($file,'images/profile');
+     $user->profile()->update(['photo'=>$path]);
+     
+  }
 
 
     $data=new ProfileResource($user->profile);

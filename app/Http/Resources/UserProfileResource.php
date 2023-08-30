@@ -18,7 +18,7 @@ class UserProfileResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'phone'=> $this->phone,
-            'photo'=>$this->profile->photo,
+            'photo'=>url($this->profile->photo),
 
 
 

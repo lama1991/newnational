@@ -41,10 +41,8 @@ class SliderController extends Controller
          $data= $validator->validated();
           if($request->hasFile('image'))
           {
-           $file=$request->file('image');
-           $path=$this-> uploadImage($file);
-
-        $data['image_url']=Config::get('filesystems.disks.slider.url').$path;
+            $file=$request->file('image');
+            $data['image_url']=$this->uploadPublic($file,'images/slider');
 
           }
           $slider=Slider::create($data);

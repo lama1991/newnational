@@ -55,11 +55,11 @@ class CollegeController extends Controller
 
           if($request->hasFile('logo2'))
           {
-           $file=$request->file('logo2');
-           $path=$this-> uploadImage($file);
+            $file=$request->file('logo2');
+          
 
 
-        $data['logo']=Config::get('filesystems.disks.college.url').$path;
+            $data['logo']=$data['logo']=$this->uploadPublic($file,'images/college');
 
           }
           $college=College::create($data);

@@ -19,7 +19,7 @@ class CollegeResource extends JsonResource
         'id'=>$this->id,
         'uuid'=>$this->uuid,
         'name'=>$this->name,
-        'logo'=>$this->logo,
+        'logo'=>url($this->logo),
            'category'=>new CategoryResource($this->category),
            'is_master'=> $this->specializations()->where('is_master',1)->exists(),
 

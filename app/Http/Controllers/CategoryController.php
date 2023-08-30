@@ -73,10 +73,10 @@ class CategoryController extends Controller
 
           if($request->hasFile('logo2'))
          {
-          $file=$request->file('logo2');
-          $path=$this->uploadImage($file);
+            $file=$request->file('logo2');
+         
 
-          $data['logo']=Config::get('filesystems.disks.category.url').$path;
+            $data['logo']=$this->uploadPublic($file,'images/category');
 
          }
          $category=new CategoryResource(Category::create($data));

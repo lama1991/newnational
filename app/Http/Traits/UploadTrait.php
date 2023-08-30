@@ -49,4 +49,11 @@ trait UploadTrait
         return $file_name;
 
     }
+    public function uploadPublic(UploadedFile $uploadedFile, $folder = null)
+    {
+         $name=time().$uploadedFile->getClientOriginalName();
+         $destenation=public_path().'/'.$folder;
+         $uploadedFile->move($destenation,$name);
+         return $folder.'/'.$name;
+    }
 }
