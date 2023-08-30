@@ -148,15 +148,15 @@ class QuestionController extends Controller
         //
     }
 
-    public function getQuestionsByTerm($termId)
+    public function getQuestionsByTerm($uuid)
     {
 
         try
         {
-            $term = Term::find($termId);
+            $term = Term::where('uuid',$uuid)->first();
 
             if (!$term) {
-                return $this-> apiResponse([],false,'no term with such id', 404);
+                return $this-> apiResponse([],false,'no term with such uuid', 404);
             }
 
             $questions = $term->questions;

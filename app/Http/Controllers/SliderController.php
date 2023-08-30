@@ -57,13 +57,13 @@ class SliderController extends Controller
         }
     }
 
-    public function show($id)
+    public function show($uuid)
     {
         try {
-            $slider=Slider::find($id);
+            $slider=Slider::where('uuid',$uuid)->first();
             if(!$slider)
             {
-                return  $this-> apiResponse([],false,'no slider with such id',404);
+                return  $this-> apiResponse([],false,'no slider with such uuid',404);
             }
             $msg='slider is here';
             $data['slider']=new SliderResource($slider);

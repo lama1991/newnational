@@ -76,10 +76,10 @@ class CollegeController extends Controller
     }
 
 
-    public function show($id)
+    public function show($uuid)
     {
         try {
-            $college=College::find($id);
+            $college=College::where('uuid',$uuid)->first();
             if(!$college)
             {
                 return  $this-> apiResponse([],false,'no college with such id',404);
@@ -146,10 +146,10 @@ class CollegeController extends Controller
     {
         //
     }
-    public function masterSpec($id)
+    public function masterSpec($uuid)
     {
         try{
-            $college=College::find($id);
+            $college=College::where('uuid',$uuid)->first();
             if(!$college)
             {
                 return  $this-> apiResponse([],false,'no college with such id',404);

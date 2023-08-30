@@ -28,13 +28,13 @@ class AnswerController extends Controller
       try {
 
 
-           $data= $validator->validated();
-          $data['uuid']=Str::uuid()->toString();
+         $data= $validator->validated();
+         $data['uuid'] = Str::uuid()->toString();
          $answer=Answer::create($data);
         
           $msg='answer is created successfully';
-          $data2=array();
-          $data2['answer']=new AnswerResource( $answer);
+          $data2 = array();
+          $data2['answer'] = new AnswerResource( $answer);
          return  $this-> apiResponse($data2,true, $msg,201);
 
         }
