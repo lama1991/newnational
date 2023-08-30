@@ -156,8 +156,8 @@ class CollegeController extends Controller
             }
             
             $specializations= $college->specializations()->where('is_master',1)->get();
-           
-            return $this->apiResponse( $specializations,true,'hi',200);
+           $data['specializations']=SpecializationResource::collection($specializations);
+            return $this->apiResponse(  $data,true,'master specializations',200);
         }
         catch (\Exception $ex){
             return $this->apiResponse([], false,$ex->getMessage() ,500);

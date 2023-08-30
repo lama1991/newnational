@@ -11,6 +11,7 @@ use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\FavouriteController;
 use Illuminate\Support\Facades\Artisan;
 /*-------------------------------------------------------------------------
@@ -100,3 +101,8 @@ Route::group(['middleware'=>['auth:sanctum']],function (){
 
 
 });
+
+
+Route::get('complain/all/',[ComplainController::class,'index']);
+Route::get('my-complains/',[ComplainController::class,'myComplains'])->middleware(['auth:sanctum']);
+Route::post('complain/add',[ComplainController::class,'store'])->middleware(['auth:sanctum']);

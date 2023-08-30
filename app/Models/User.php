@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+    public function complains()
+    {
+        return $this->hasMany(Complain::class);
+    }
 }
