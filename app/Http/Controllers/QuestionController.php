@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Resources\QuestionResource;
+use App\Models\Specialization;
+
 use function PHPUnit\Framework\isTrue;
 
 class QuestionController extends Controller
@@ -164,6 +166,28 @@ class QuestionController extends Controller
             $data['questions']=QuestionResource::collection( $questions);
 
             return  $this-> apiResponse($data,true,'all questions of term are here ',200);
+
+        }
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
+        }
+    }
+    public function getQuestionsBySpecialization($uuid)
+    {
+
+        try
+        {
+            $specialization = Specialization::where('uuid',$uuid)->first();
+
+            if (!$specialization) {
+                return $this-> apiResponse([],false,'no Specialization with such uuid', 404);
+            }
+
+            $questions = $specialization->questions;
+            $data=array();
+            $data['questions']=QuestionResource::collection( $questions);
+
+            return  $this-> apiResponse($data,true,'all questions of specialization are here ',200);
 
         }
         catch (\Exception $ex){
