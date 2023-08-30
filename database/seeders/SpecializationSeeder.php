@@ -20,6 +20,8 @@ class SpecializationSeeder extends Seeder
             'uuid' => Str::uuid()->toString(),
             'name' => 'برمجيات ',
             'college_id'=>1,
+            'is_master'=>true
+           
            
            
         ]);
@@ -27,6 +29,7 @@ class SpecializationSeeder extends Seeder
             'uuid' => Str::uuid()->toString(),
             'name' => 'شبكات ',
             'college_id'=>1,
+           'is_master'=>true
            
            
         ]);
