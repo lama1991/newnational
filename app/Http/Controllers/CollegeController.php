@@ -26,7 +26,7 @@ class CollegeController extends Controller
 
         }
        catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+        return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
 
@@ -110,7 +110,7 @@ class CollegeController extends Controller
         return  $this-> apiResponse($data,true,'all specializations of college are here ',200);
         }
         catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+            return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
     /**
@@ -146,4 +146,46 @@ class CollegeController extends Controller
     {
         //
     }
+    public function masterSpec($id)
+    {
+        try{
+            $college=College::find($id);
+            if(!$college)
+            {
+                return  $this-> apiResponse([],false,'no college with such id',404);
+            }
+            
+            $specializations= $college->specializations()->where('is_master',1)->get();
+           
+            return $this->apiResponse( $specializations,true,'hi',200);
+        }
+        catch (\Exception $ex){
+            return $this->apiResponse([], false,$ex->getMessage() ,500);
+        }
+    }
+    // public function degree($id)
+    // {
+    //     try{
+    //         $college=College::find($id);
+    //         if(!$college)
+    //         {
+    //             return  $this-> apiResponse([],false,'no college with such id',404);
+    //         }
+    //         $master= $college->specializations()->where('is_master',1)->exists();
+    //         if($master)
+    //         {   
+    //             $data['master']=1;
+    //             return $this->apiResponse( $data,true,'this college has master',200);
+    //         }
+    //         else
+    //         {
+    //             $data['master']=0;
+    //             return $this->apiResponse( $data,true,'this college not have master',200);
+    //         }
+         
+    //     }
+    //     catch (\Exception $ex){
+    //         return $this->apiResponse([], false,$ex->getMessage() ,500);
+    //     }
+    // }
 }

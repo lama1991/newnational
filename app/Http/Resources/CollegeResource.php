@@ -20,7 +20,8 @@ class CollegeResource extends JsonResource
         'uuid'=>$this->uuid,
         'name'=>$this->name,
         'logo'=>$this->logo,
-           'category'=>new CategoryResource($this->category)
+           'category'=>new CategoryResource($this->category),
+           'is_master'=> $this->specializations()->where('is_master',1)->exists(),
 
        ];
     }

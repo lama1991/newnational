@@ -7,7 +7,9 @@ use App\Http\Traits\GeneralTrait;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Term;
+
 use Doctrine\DBAL\Exception;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -78,6 +80,7 @@ class QuestionController extends Controller
           $msg='question is created successfully';
           $data2=array();
           $data2['question']=new QuestionResource($question);
+        
          return  $this-> apiResponse($data2,true, $msg,201);
 
         }
@@ -98,6 +101,10 @@ class QuestionController extends Controller
         try{
 
             $question=Question::where('uuid',$uuid)->first();
+            if (!$question) {
+                return $this->apiResponse([], false,'Question not found',404);
+         
+            }
            $data['question']=new QuestionResource($question);
             return  $this-> apiResponse($data,true,'question is here',200);
         }
@@ -140,6 +147,7 @@ class QuestionController extends Controller
     {
         //
     }
+
     public function getQuestionsByTerm($termId)
     {
 
@@ -162,6 +170,7 @@ class QuestionController extends Controller
             return $this->errorResponse($ex->getMessage(),500);
         }
     }
+
     public function calculateMark(Request $request)
     {
     try
@@ -213,6 +222,7 @@ class QuestionController extends Controller
     return $this->errorResponse($ex->getMessage(),500);
    }
     }
+
 
 
 }

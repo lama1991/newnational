@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('uuid')->unique();
             $table->string('name');
             $table->unsignedBigInteger('college_id');
+            $table->boolean('is_master')->default(0);
             $table->foreign('college_id')->references('id')->on('colleges');
             $table->timestamps();
         });

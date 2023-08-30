@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Models\College;
 use App\Models\Specialization;
 use App\Models\Term;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Resources\SpecializationResource;
+use App\Http\Resources\TermResource;
+
 class SpecializationController extends Controller
 {
     use GeneralTrait;
@@ -28,7 +31,7 @@ class SpecializationController extends Controller
 
         }
         catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+            return $this->apiResponse([], false,$ex->getMessage() ,500);
         }
     }
 
@@ -53,6 +56,7 @@ class SpecializationController extends Controller
         $validator=Validator::make($request->all(),[
                 'name'=>'required|string',
                 'college_id'=>'required|numeric',
+                'is_master'=>'required'
             ]
         );
         if($validator->fails()){
@@ -63,7 +67,7 @@ class SpecializationController extends Controller
             $uuid = Str::uuid()->toString();
             $data= $validator->validated();
             $data['uuid']=$uuid;
-
+            
             // Check if specialization already exists for the given college
             $existingSpecialization = Specialization::where('name', $data['name'])
                 ->where('college_id', $data['college_id'])
@@ -73,7 +77,8 @@ class SpecializationController extends Controller
                 return $this->apiResponse([], false, 'Specialization already exists for this college', 422);
             }
 
-            $specialization=new SpecializationResource(Specialization::create($data));
+           $specialization=new SpecializationResource(Specialization::create($data));
+            
             $data2=array();
             $data2['specialization']= $specialization;
 
@@ -192,7 +197,30 @@ class SpecializationController extends Controller
             return  $this-> apiResponse($data,true,'all terms of specialization are here ',200);
         }
         catch (\Exception $ex){
-            return $this->errorResponse($ex->getMessage(),500);
+            return $this->apiResponse([], false, $ex->getMessage(), 500);
         }
     }
+    public function bookQuest($specId)
+{
+    try
+    {
+        
+        $specialization=Specialization::find($specId);
+
+        if (!$specialization) {
+            return $this-> apiResponse([],false,'no specialization with such id', 404);
+        }
+
+        $questions = $specialization->questions()->where('term_id',null)->get();
+        $data=array();
+        $data['questions']=QuestionResource::collection( $questions);
+
+
+        return  $this-> apiResponse($data,true,'all questions of book are here ',200);
+
+    }
+    catch (\Exception $ex){
+        return $this->errorResponse($ex->getMessage(),500);
+    }
+}
 }

@@ -10,8 +10,14 @@ class Specialization extends Model
     use HasFactory;
     protected $fillable = [
        
-       'uuid' , 'name' , 'college_id'
+       'uuid' , 'name' , 'college_id','is_master',
     ];
+    protected $casts = [
+        'id'=>'integer',
+        'is_master' => 'boolean',
+       
+        ];
+        
     public function college()
     {
         return $this->belongsTo(College::class);

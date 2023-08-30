@@ -40,6 +40,7 @@ trait UploadTrait
 
      return   $pathes;
     }
+    
     public function uploadImage($image, $folder = null){
         $file_extension=$image->getClientOriginalExtension();
         $file_name=time().'.'.$file_extension;

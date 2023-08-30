@@ -11,6 +11,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -24,7 +25,11 @@ class ProfileController extends Controller
        try{
            $users=User::all();
 
-           $data['profiles']=UserProfileResource::collection($users);
+
+         $data['profiles']=UserProfileResource::collection($users);
+
+          return  $this-> apiResponse($data,true,'all profiles are here ',200);
+
 
            return  $this-> apiResponse($data,true,'all profiles are here ',200);
 
@@ -33,6 +38,7 @@ class ProfileController extends Controller
            return  $this-> apiResponse([],false,$ex->getMessage(),500);
        }
    }
+
     public function store(Request $request)
     {
         //
