@@ -12,9 +12,11 @@ class Answer extends Model
 
        'uuid' , 'content' ,'is_true','question_id'
     ];
-    protected $casts = [
-        'is_true' => 'boolean',
-        ];
+
+    protected $casts=[
+        'is_true'=>'boolean',
+    ];
+
     public function question()
     {
         return $this->belongsTo(Question::class);

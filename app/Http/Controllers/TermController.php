@@ -137,14 +137,26 @@ class TermController extends Controller
     }
     public function getTermsBySpecialization($specializationId)
     {
-        $specialization = Specialization::find($specializationId);
 
-        if (!$specialization) {
-            return response()->json(['error' => 'Specialization not found'], 404);
+        try
+        {
+            $specialization = Specialization::find($specializationId);
+
+            if (!$specialization) {
+                return $this-> apiResponse([],false,'no specialization with such id', 404);
+            }
+
+            $terms = $specialization->terms;
+            $data=array();
+            $data['terms']=TermResource::collection( $terms);
+
+            return  $this-> apiResponse($data,true,'all terms of specialization are here ',200);
+
+        }
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
         }
 
-        $terms = $specialization->terms;
-
-        return response()->json(['terms' => $terms]);
     }
+
 }

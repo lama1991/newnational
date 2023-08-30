@@ -18,7 +18,7 @@ class TermResource extends JsonResource
       
         
         return [
-            
+
             'id'=>$this->id,
             'uuid' => $this->uuid,
             'name' => $this->name,

@@ -11,6 +11,7 @@ use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\FavouriteController;
 /*-------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -63,18 +64,25 @@ Route::post('/specialization/{college_id}/{specialization_id}',[SpecializationCo
 Route::get('question/all',[QuestionController::class,'index']);
 Route::post('question/create',[QuestionController::class,'store']);
 Route::get('question/{uuid}',[QuestionController::class,'show']);
+Route::get('/questions-of-term/{id}',[QuestionController::class,'getQuestionsByTerm']);
 
 Route::get('answer/all',[AnswerController::class,'index']);
 Route::post('answer/create',[AnswerController::class,'store']);
 Route::get('answer/{uuid}',[AnswerController::class,'show']);
 Route::get('/answers-of-question/{uuid}',[AnswerController::class,'getAnswersByQuestion']);
-Route::get('/questions-of-term/{id}',[QuestionController::class,'getQuestionsByTerm']);
 
+Route::get('/questions-of-term/{id}',[QuestionController::class,'getQuestionsByTerm']);
+=======
+
+
+Route::get('/calculate_mark',[QuestionController::class,'calculateMark']);
 Route::get('/term/all',[TermController::class,'index']);
 Route::post('/term/create',[TermController::class,'store']);
 Route::get('/term/{uuid}',[TermController::class,'show']);
 Route::get('/terms-of-specializations/{id}',[TermController::class,'getTermsBySpecialization']);
 
+Route::post('favourite/create',[FavouriteController::class,'store']);
+Route::get('my_favourite',[FavouriteController::class,'myFavourite']);
 
 Route::group(['middleware'=>['auth:sanctum']],function (){
     Route::get('/logout',[AuthController::class,'logout']);
