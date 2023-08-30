@@ -42,15 +42,15 @@ Route::post('/give-code',[AuthController::class,'giveCode'])->name('give.code');
 
 Route::get('/college/all',[CollegeController::class,'index']);
 Route::post('/college/create',[CollegeController::class,'store']);
-Route::get('/college/{id}',[CollegeController::class,'show']);
-Route::get('/specializations-of-college/{id}',[CollegeController::class,'specializationsof'])->middleware(['auth:sanctum']);
-Route::get('/master-spec/{id}',[CollegeController::class,'masterSpec']);
+Route::get('/college/{uuid}',[CollegeController::class,'show']);
+Route::get('/specializations-of-college/{uuid}',[CollegeController::class,'specializationsof'])->middleware(['auth:sanctum']);
+Route::get('/master-spec/{uuid}',[CollegeController::class,'masterSpec']);
 //Route::get('/degrees/{id}',[CollegeController::class,'degree']);
 
 Route::get('/category/all',[CategoryController::class,'index']);
 Route::post('/category/create',[CategoryController::class,'store']);
-Route::get('/category/{id}',[CategoryController::class,'show']);
-Route::get('/colleges-of-category/{id}',[CategoryController::class,'colleges']);
+Route::get('/category/{uuid}',[CategoryController::class,'show']);
+Route::get('/colleges-of-category/{uuid}',[CategoryController::class,'colleges']);
 
 Route::post('/profile/update',[ProfileController::class,'update'])->middleware(['auth:sanctum']);
 Route::get('/profile/{user_uuid}',[ProfileController::class,'show']);
@@ -60,20 +60,20 @@ Route::post('/profile/update-photo',[ProfileController::class,'updatePhoto'])->m
 
 
 Route::get('/slider/all',[SliderController::class,'index']);
-Route::get('/slider/{id}',[SliderController::class,'show']);
+Route::get('/slider/{uuid}',[SliderController::class,'show']);
 Route::post('/slider/create',[SliderController::class,'store']);
 
 Route::get('/specialization/all',[SpecializationController::class,'index']);
 Route::post('/specialization/create',[SpecializationController::class,'store']);
 Route::get('/specialization/{uuid}',[SpecializationController::class,'show']);
-Route::get('/bookQues/{specId}',[SpecializationController::class,'bookQuest']);
+Route::get('/bookQues/{uuid}',[SpecializationController::class,'bookQuest']);
 Route::post('/specialization/{college_id}/{specialization_id}',[SpecializationController::class,'destroy']);
 
 
 Route::get('question/all',[QuestionController::class,'index']);
 Route::post('question/create',[QuestionController::class,'store']);
 Route::get('question/{uuid}',[QuestionController::class,'show']);
-Route::get('/questions-of-term/{id}',[QuestionController::class,'getQuestionsByTerm']);
+Route::get('/questions-of-term/{uuid}',[QuestionController::class,'getQuestionsByTerm']);
 Route::post('/calculate_mark',[QuestionController::class,'calculateMark']);
 
 
@@ -90,7 +90,7 @@ Route::get('/answers-of-question/{uuid}',[AnswerController::class,'getAnswersByQ
 Route::get('/term/all',[TermController::class,'index']);
 Route::post('/term/create',[TermController::class,'store']);
 Route::get('/term/{uuid}',[TermController::class,'show']);
-Route::get('/terms-of-specializations/{id}',[TermController::class,'getTermsBySpecialization']);
+Route::get('/terms-of-specializations/{uuid}',[TermController::class,'getTermsBySpecialization']);
 
 Route::post('favourite/create',[FavouriteController::class,'store'])->middleware(['auth:sanctum']);
 Route::get('my_favourite',[FavouriteController::class,'myFavourite'])->middleware(['auth:sanctum']);

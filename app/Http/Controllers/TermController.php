@@ -89,7 +89,7 @@ class TermController extends Controller
             $term=Term::where('uuid',$uuid)->first();
             if(!$term)
             {
-                return  $this-> apiResponse([],false,'no term with such id',404);
+                return  $this-> apiResponse([],false,'no term with such uuid',404);
             }
             $msg='Term is here';
             $data=array();
@@ -135,15 +135,15 @@ class TermController extends Controller
     {
         //
     }
-    public function getTermsBySpecialization($specializationId)
+    public function getTermsBySpecialization($uuid)
     {
 
         try
         {
-            $specialization = Specialization::find($specializationId);
+            $specialization = Specialization::where('uuid',$uuid)->first();
 
             if (!$specialization) {
-                return $this-> apiResponse([],false,'no specialization with such id', 404);
+                return $this-> apiResponse([],false,'no specialization with such uuid', 404);
             }
 
             $terms = $specialization->terms;

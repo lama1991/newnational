@@ -98,10 +98,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
         try {
-            $category=Category::find($id);
+            $category=Category::where('uuid',$uuid)->first();
             if(! $category)
             {
                 return  $this-> apiResponse([],false,'no category with such id',404);
@@ -116,11 +116,11 @@ class CategoryController extends Controller
               return $this->apiResponse([], false,$ex->getMessage() ,500);
           }
     }
-    public function colleges($id)
+    public function colleges($uuid)
     {
         try
         {
-        $category=Category::find($id);
+        $category=Category::where('uuid',$uuid)->first();
          if(! $category)
             {
                 return  $this-> apiResponse([],false,'no category with such id',404);

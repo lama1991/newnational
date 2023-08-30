@@ -104,7 +104,7 @@ class SpecializationController extends Controller
             $specialization=Specialization::where('uuid',$uuid)->first();
             if(!$specialization)
             {
-                return  $this-> apiResponse([],false,'no spezalization with such id',404);
+                return  $this-> apiResponse([],false,'no spezalization with such uuid',404);
             }
             $msg='Specialization is here';
             $data=array();
@@ -182,14 +182,14 @@ class SpecializationController extends Controller
         }
     }
 
-    public function termsOf($id)
+    public function termsOf($uuid)
     {
         try
         {
-            $specialization=Specialization::find($id);
+            $specialization=Specialization::where('uuid',$uuid)->first;
             if(!$specialization)
             {
-                return  $this-> apiResponse([],false,'no Specializatione with such id',404);
+                return  $this-> apiResponse([],false,'no Specializatione with such uuid',404);
             }
             $terms=$specialization->terms;
             $data=array();
@@ -200,12 +200,12 @@ class SpecializationController extends Controller
             return $this->apiResponse([], false, $ex->getMessage(), 500);
         }
     }
-    public function bookQuest($specId)
+    public function bookQuest($uuid)
 {
     try
     {
         
-        $specialization=Specialization::find($specId);
+        $specialization=Specialization::where('uuid',$uuid)->first;
 
         if (!$specialization) {
             return $this-> apiResponse([],false,'no specialization with such id', 404);
