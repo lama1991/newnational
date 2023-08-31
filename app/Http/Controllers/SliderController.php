@@ -44,7 +44,7 @@ class SliderController extends Controller
          $data['uuid']=$uuid;
           // Check if category already exists in the database
           $sliderExists = Slider::where('image_url', $data['image'])->where('link', $data['link'])->exists();
-          if ($sliderExists) {
+          if (!$sliderExists) {
               return $this->apiResponse([], false, 'Slider already exists', 422);
           }
 
