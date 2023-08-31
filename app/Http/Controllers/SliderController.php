@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Traits\UploadTrait;
+use Illuminate\Support\Str;
 class SliderController extends Controller
 {
     use GeneralTrait,UploadTrait;
@@ -38,7 +39,15 @@ class SliderController extends Controller
         }
       try {
           $msg='slider is created successfully';
-         $data= $validator->validated();
+          $uuid = Str::uuid()->toString();
+          $data= $validator->validated();
+         $data['uuid']=$uuid;
+          // Check if category already exists in the database
+          $sliderExists = Slider::where('image_url', $data['image'])->where('link', $data['link'])->exists();
+          if ($sliderExists) {
+              return $this->apiResponse([], false, 'Slider already exists', 422);
+          }
+
           if($request->hasFile('image'))
           {
             $file=$request->file('image');
