@@ -95,11 +95,11 @@ class CollegeController extends Controller
           }
     }
 
-    public function specializationsof($id)
+    public function specializationsof($uuid)
     {
         try
         {
-         $college=College::find($id);
+         $college=College::where('uuid',$uuid)->first();
         if(!$college)
         {
              return  $this-> apiResponse([],false,'no college with such id',404);
