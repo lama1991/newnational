@@ -75,6 +75,7 @@ Route::get('question/all',[QuestionController::class,'index']);
 Route::post('question/create',[QuestionController::class,'store']);
 Route::get('question/{uuid}',[QuestionController::class,'show']);
 Route::get('/questions-of-term/{uuid}',[QuestionController::class,'getQuestionsByTerm']);
+Route::get('/questions-of-specialization/{uuid}',[QuestionController::class,'getQuestionsBySpecialization']);
 Route::post('/calculate_mark',[QuestionController::class,'calculateMark']);
 
 
