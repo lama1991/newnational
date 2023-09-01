@@ -12,6 +12,7 @@ use App\Http\Controllers\TermController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\ComplainController;
 use Illuminate\Support\Facades\Artisan;
 /*-------------------------------------------------------------------------
 | API Routes
@@ -104,6 +105,11 @@ Route::get('/terms-of-college-last-five/{uuid}',[TermController::class,'getTermB
 
 Route::post('favourite/create',[FavouriteController::class,'store']);
 Route::get('my_favourite',[FavouriteController::class,'myFavourite']);
+
+
+Route::get('complain/all/',[ComplainController::class,'index']);
+Route::get('my-complains/',[ComplainController::class,'myComplains']);
+Route::post('complain/add',[ComplainController::class,'store']);
 
 Route::get('/logout',[AuthController::class,'logout']);
 
