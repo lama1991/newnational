@@ -29,4 +29,8 @@ class College extends Model
     {
         return $this->hasMany(Code::class);
     }
+    public function terms()
+    {
+        return $this->hasManyThrough(Term::class, Specialization::class);
+    }
 }

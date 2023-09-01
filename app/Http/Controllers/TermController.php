@@ -6,6 +6,7 @@ use App\Http\Resources\TermResource;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Specialization;
 use App\Models\Term;
+use App\Models\College;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -146,7 +147,7 @@ class TermController extends Controller
                 return $this-> apiResponse([],false,'no specialization with such uuid', 404);
             }
 
-            $terms = $specialization->terms;
+            $terms = $specialization->terms->sortByDesc('created_at');
             $data=array();
             $data['terms']=TermResource::collection( $terms);
 
@@ -156,6 +157,67 @@ class TermController extends Controller
         catch (\Exception $ex){
             return $this->errorResponse($ex->getMessage(),500);
         }
+
+    }
+    public function getTermsBySpecializationLastFive($uuid)
+    {
+
+        try
+        {
+            $specialization = Specialization::where('uuid',$uuid)->first();
+
+            if (!$specialization) {
+                return $this-> apiResponse([],false,'no specialization with such uuid', 404);
+            }
+
+            $terms = $specialization->terms->sortByDesc('created_at')->take(5);
+            $data=array();
+            $data['terms']=TermResource::collection( $terms);
+
+            return  $this-> apiResponse($data,true,'all terms of specialization are here ',200);
+
+        }
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
+        }
+
+    }
+    public function getTermByCollege($uuid){
+        try {
+     $college = College::where('uuid',$uuid)->first();
+    if (!$college) {
+        return $this-> apiResponse([],false,'no collage with such uuid', 404);
+    }
+    
+    $terms = $college->terms->sortByDesc('created_at');
+    $data=array();
+    $data['terms']=TermResource::collection( $terms);
+
+    return  $this-> apiResponse($data,true,'all terms of collage are here ',200);
+        }
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
+        }
+
+
+    }
+    public function getTermByCollegeLastFive($uuid){
+        try {
+     $college = College::where('uuid',$uuid)->first();
+    if (!$college) {
+        return $this-> apiResponse([],false,'no collage with such uuid', 404);
+    }
+    
+    $terms = $college->terms->sortByDesc('created_at')->take(5);
+    $data=array();
+    $data['terms']=TermResource::collection( $terms);
+
+    return  $this-> apiResponse($data,true,'all terms of collage are here ',200);
+        }
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
+        }
+
 
     }
 

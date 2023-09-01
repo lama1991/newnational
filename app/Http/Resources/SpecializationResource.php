@@ -22,9 +22,10 @@ class SpecializationResource extends JsonResource
 
            'id'=>$this->id,
        'uuid'=>$this->uuid,
-        'name'=>$this->name,
+        'name'=>$this->name,      
+         'is_master'=>$this->is_master,
            'college'=>new CollegeResource($this->college),
-           'is_master'=>$this->is_master,
+    
 
        ];
     }

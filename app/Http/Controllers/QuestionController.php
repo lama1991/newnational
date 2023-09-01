@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Resources\QuestionResource;
+use App\Models\College;
 use App\Models\Specialization;
 
 use function PHPUnit\Framework\isTrue;
@@ -148,6 +149,28 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         //
+    }
+    public function getQuestionsByCollege($uuid)
+    {
+
+        try
+        {
+            $college = College::where('uuid',$uuid)->first();
+
+            if (!$college) {
+                return $this-> apiResponse([],false,'no Collage with such uuid', 404);
+            }
+
+            $questions = $college->questions;
+            $data=array();
+            $data['questions']=QuestionResource::collection( $questions);
+
+            return  $this-> apiResponse($data,true,'all questions of collage are here ',200);
+
+        }
+        catch (\Exception $ex){
+            return $this->errorResponse($ex->getMessage(),500);
+        }
     }
 
     public function getQuestionsByTerm($uuid)

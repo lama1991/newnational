@@ -82,6 +82,7 @@ Route::post('/specialization/{college_id}/{specialization_id}',[SpecializationCo
 Route::get('question/all',[QuestionController::class,'index']);
 Route::post('question/create',[QuestionController::class,'store']);
 Route::get('question/{uuid}',[QuestionController::class,'show']);
+Route::get('/questions-of-college/{uuid}',[QuestionController::class,'getQuestionsByCollege']);
 Route::get('/questions-of-term/{uuid}',[QuestionController::class,'getQuestionsByTerm']);
 Route::get('/questions-of-specialization/{uuid}',[QuestionController::class,'getQuestionsBySpecialization']);
 Route::post('/calculate_mark',[QuestionController::class,'calculateMark']);
@@ -97,6 +98,9 @@ Route::get('/term/all',[TermController::class,'index']);
 Route::post('/term/create',[TermController::class,'store']);
 Route::get('/term/{uuid}',[TermController::class,'show']);
 Route::get('/terms-of-specializations/{uuid}',[TermController::class,'getTermsBySpecialization']);
+Route::get('/terms-of-specializations-last-five/{uuid}',[TermController::class,'getTermsBySpecializationLastFive']);
+Route::get('/terms-of-college/{uuid}',[TermController::class,'getTermByCollege']);
+Route::get('/terms-of-college-last-five/{uuid}',[TermController::class,'getTermByCollegeLastFive']);
 
 Route::post('favourite/create',[FavouriteController::class,'store']);
 Route::get('my_favourite',[FavouriteController::class,'myFavourite']);
