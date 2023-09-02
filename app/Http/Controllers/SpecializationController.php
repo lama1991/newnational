@@ -205,7 +205,7 @@ class SpecializationController extends Controller
     try
     {
         
-        $specialization=Specialization::where('uuid',$uuid)->first;
+        $specialization=Specialization::where('uuid',$uuid)->first();
 
         if (!$specialization) {
             return $this-> apiResponse([],false,'no specialization with such id', 404);

@@ -13,6 +13,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Artisan;
 /*-------------------------------------------------------------------------
 | API Routes
@@ -23,14 +24,15 @@ use Illuminate\Support\Facades\Artisan;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/fresh', function () {
+// Route::get('/fresh', function () {
    
-    Artisan::call('migrate:fresh');
-  });
+//     Artisan::call('migrate:fresh');
+//   });
   Route::get('/seed', function () {
      
     Artisan::call('db:seed');
   });
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -107,3 +109,19 @@ Route::group(['middleware'=>['auth:sanctum']],function (){
 Route::get('complain/all/',[ComplainController::class,'index']);
 Route::get('my-complains/',[ComplainController::class,'myComplains'])->middleware(['auth:sanctum']);
 Route::post('complain/add',[ComplainController::class,'store'])->middleware(['auth:sanctum']);
+
+
+Route::get('/require', function () {
+   
+  shell_exec('composer require kutia-software-company/larafirebase');
+});
+Route::get('/publishlara', function () {
+     Artisan::call('vendor:publish', [
+    '--provider' => "Kutia\Larafirebase\Providers\LarafirebaseServiceProvider"]);
+});
+
+
+Route::match(['post', 'patch' ],'/fcm-token', [NotificationController::class, 'updateToken'])->name('fcmToken');
+Route::post('add-notification',[NotificationController::class,'add']);
+Route::get('all-notifications',[NotificationController::class,'index']);
+Route::get('send-notification/{uuid}',[NotificationController::class,'send']);

@@ -27,6 +27,7 @@ class ComposerStaticInit3a9084f354fa6fb0671ed9a4f82bcf5c
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '86b1a3c81386576820df6ff03395c2c7' => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src/Helpers/All.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
@@ -127,6 +128,10 @@ class ComposerStaticInit3a9084f354fa6fb0671ed9a4f82bcf5c
             'Laravel\\SerializableClosure\\' => 28,
             'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
+        ),
+        'K' => 
+        array (
+            'Kutia\\Larafirebase\\' => 19,
         ),
         'I' => 
         array (
@@ -435,6 +440,10 @@ class ComposerStaticInit3a9084f354fa6fb0671ed9a4f82bcf5c
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
         ),
+        'Kutia\\Larafirebase\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -555,8 +564,10 @@ class ComposerStaticInit3a9084f354fa6fb0671ed9a4f82bcf5c
         'App\\Http\\Controllers\\Api\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AuthController.php',
         'App\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryController.php',
         'App\\Http\\Controllers\\CollegeController' => __DIR__ . '/../..' . '/app/Http/Controllers/CollegeController.php',
+        'App\\Http\\Controllers\\ComplainController' => __DIR__ . '/../..' . '/app/Http/Controllers/ComplainController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\FavouriteController' => __DIR__ . '/../..' . '/app/Http/Controllers/FavouriteController.php',
+        'App\\Http\\Controllers\\NotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\QuestionController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuestionController.php',
         'App\\Http\\Controllers\\SliderController' => __DIR__ . '/../..' . '/app/Http/Controllers/SliderController.php',
@@ -575,6 +586,7 @@ class ComposerStaticInit3a9084f354fa6fb0671ed9a4f82bcf5c
         'App\\Http\\Resources\\AnswerResource' => __DIR__ . '/../..' . '/app/Http/Resources/AnswerResource.php',
         'App\\Http\\Resources\\CategoryResource' => __DIR__ . '/../..' . '/app/Http/Resources/CategoryResource.php',
         'App\\Http\\Resources\\CollegeResource' => __DIR__ . '/../..' . '/app/Http/Resources/CollegeResource.php',
+        'App\\Http\\Resources\\ComplainResource' => __DIR__ . '/../..' . '/app/Http/Resources/ComplainResource.php',
         'App\\Http\\Resources\\FavouriteResource' => __DIR__ . '/../..' . '/app/Http/Resources/FavouriteResource.php',
         'App\\Http\\Resources\\ProfileResource' => __DIR__ . '/../..' . '/app/Http/Resources/ProfileResource.php',
         'App\\Http\\Resources\\QuestionResource' => __DIR__ . '/../..' . '/app/Http/Resources/QuestionResource.php',
@@ -589,6 +601,7 @@ class ComposerStaticInit3a9084f354fa6fb0671ed9a4f82bcf5c
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Code' => __DIR__ . '/../..' . '/app/Models/Code.php',
         'App\\Models\\College' => __DIR__ . '/../..' . '/app/Models/College.php',
+        'App\\Models\\Complain' => __DIR__ . '/../..' . '/app/Models/Complain.php',
         'App\\Models\\Favourite' => __DIR__ . '/../..' . '/app/Models/Favourite.php',
         'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
         'App\\Models\\Profile' => __DIR__ . '/../..' . '/app/Models/Profile.php',
@@ -3108,6 +3121,12 @@ class ComposerStaticInit3a9084f354fa6fb0671ed9a4f82bcf5c
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Kutia\\Larafirebase\\Channels\\FirebaseChannel' => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src/Channels/FirebaseChannel.php',
+        'Kutia\\Larafirebase\\Exceptions\\UnsupportedTokenFormat' => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src/Exceptions/UnsupportedTokenFormat.php',
+        'Kutia\\Larafirebase\\Facades\\Larafirebase' => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src/Facades/Larafirebase.php',
+        'Kutia\\Larafirebase\\Messages\\FirebaseMessage' => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src/Messages/FirebaseMessage.php',
+        'Kutia\\Larafirebase\\Providers\\LarafirebaseServiceProvider' => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src/Providers/LarafirebaseServiceProvider.php',
+        'Kutia\\Larafirebase\\Services\\Larafirebase' => __DIR__ . '/..' . '/kutia-software-company/larafirebase/src/Services/Larafirebase.php',
         'Laravel\\Sail\\Console\\AddCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/AddCommand.php',
         'Laravel\\Sail\\Console\\Concerns\\InteractsWithDockerComposeServices' => __DIR__ . '/..' . '/laravel/sail/src/Console/Concerns/InteractsWithDockerComposeServices.php',
         'Laravel\\Sail\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/InstallCommand.php',
